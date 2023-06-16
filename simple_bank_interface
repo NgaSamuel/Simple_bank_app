@@ -1,0 +1,43 @@
+class BankAccount:
+    def __init__(self, account_number, initial_balance):
+        self.account_number = account_number
+        self.balance = initial_balance
+
+    def deposit(self, amount):
+        self.balance += amount
+        print("Deposit successful. Current balance:", self.balance)
+
+    def withdraw(self, amount):
+        if self.balance >= amount:
+            self.balance -= amount
+            print("Withdrawal successful. Current balance:", self.balance)
+        else:
+            print("Insufficient funds. Current balance:", self.balance)
+
+    def calculate_balance(self):
+        print("Account number:", self.account_number)
+        print("Current balance:", self.balance)
+
+
+class SavingsAccount(BankAccount):
+    def __init__(self, account_number, initial_balance):
+        super().__init__(account_number, initial_balance)
+        self.interest_rate = 0.05
+
+    def calculate_interest(self):
+        interest = self.balance * self.interest_rate
+        self.balance += interest
+        print("Interest calculated and added. Current balance:", self.balance)
+
+
+class CurrentAccount(BankAccount):
+    def __init__(self, account_number, initial_balance, overdraft_limit):
+        super().__init__(account_number, initial_balance)
+        self.overdraft_limit = overdraft_limit
+
+    def withdraw(self, amount):
+        if self.balance + self.overdraft_limit >= amount:
+            self.balance -= amount
+            print("Withdrawal successful. Current balance:", self.balance)
+        else:
+            print("Insufficient funds. Current balance:", self.balance)
